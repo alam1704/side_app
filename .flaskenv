@@ -1,0 +1,2 @@
+FLASK_APP-side_app
+FLASK_ENV-development
