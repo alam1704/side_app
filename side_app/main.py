@@ -1,8 +1,10 @@
 from flask import Flask, json, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 
 #This is going to let SQLAlchemy figure out how to connect to connect to the database, and also silence some pesky warnings.
 db = SQLAlchemy()
+ma = Marshmallow()
 
 def create_app():
 
@@ -17,6 +19,7 @@ def create_app():
 
     #we are creating a generic db object that we can import into our models code, and then waiting until the create_app function is called to associate that db object with our app. Tricky!
     db.init_app(app)
+    ma.init_app(app)
 
     #register our routes
     from controllers import registerable_controllers
