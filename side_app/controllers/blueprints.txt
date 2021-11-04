@@ -1,0 +1,12 @@
+Blueprints can be used to do lots of stuff - 
+they're not just controllers! Blueprints are basically 
+a way of defining some of the properties of a Flask app 
+in advance, so that you can pick when that definition takes 
+effect, and even apply your defined behaviour to multiple 
+apps if you want. As an example, we'll use blueprints later 
+to create new terminal commands for our app. 
+
+For now, though, we need a controller, 
+so let's create a blueprint that tells Flask how our 
+controller should work.
+
