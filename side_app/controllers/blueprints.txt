@@ -10,3 +10,17 @@ For now, though, we need a controller,
 so let's create a blueprint that tells Flask how our 
 controller should work.
 
+Changes we are making here:
+
+- We need to import both our new schemas
+- When we want a python dictionary as our output, we use the schema.dump() method 
+    - We can use this to convert a Course object into a dict
+    - We can also use this to get the fields that are relevant to our model from the request.json object as a dict
+- When we want a Model instance as our output, we use the schema.load() method
+    - We call this method with the request.json object as it's argument
+    - This will only work if we give over all the fields that the model's __init__ method requires in the request
+- Finally, while we are here, we're tweaking our update view to only bother making changes to the database when it actually receives new data. We've made it so that our schema can be extended easily by just adding new fields to our model, so we can't depend on knowing what fields will come through anymore - adding this check accounts for the possibility that a user attempts a PATCH request with no actual new data supplied.
+
+NOTE: remember that when you're dealing with just one model instance you need to use the singular version of your schema, and when you're dealing with multiple model instances you need to use the plural version.
+
+With these changes, you should be able to once again run your app without issue!
