@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from main import db
 from models.pharmacy import Pharmacy
 
+# this is a controller in the ModelViewsController model.
 pharmacies = Blueprint('pharmacies', __name__)
 
 # 'View' code
