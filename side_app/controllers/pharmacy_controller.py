@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from main import db
 from models.pharmacy import Pharmacy
+from schemas.pharmacy_schema import pharmacies_schema, pharmacy_schema
 
 # this is a controller in the ModelViewsController model.
 pharmacies = Blueprint('pharmacies', __name__)
@@ -26,30 +27,32 @@ def homepage():
 @pharmacies.route("/pharmacies/", methods=["GET"])
 def get_pharmacies():
     pharmacies = Pharmacy.query.all()
-    return jsonify([pharmacy.serialize for pharmacy in pharmacies])
+    return jsonify(pharmacies_schema.dump(pharmacies))
 
 @pharmacies.route("/pharmacies/", methods = ["POST"])
 def create_pharmacy():
-    new_pharmacy = Pharmacy(request.json['pharmacy_name'])
+    new_pharmacy = pharmacy_schema.load(request.json)
     db.session.add(new_pharmacy)
     db.session.commit()
-    return jsonify(new_pharmacy.serialize)
+    return jsonify(pharmacy_schema.dump(new_pharmacy))
 
 @pharmacies.route("/pharmacies/<int:id>/", methods = ["GET"])
 def get_pharmacy(id):
     pharmacy = Pharmacy.query.get_or_404(id)
-    return jsonify(pharmacy.serialize)
+    return jsonify(pharmacy_schema.dump(pharmacy))
 
 @pharmacies.route("/pharmacies/<int:id>/", methods=["PUT", "PATCH"])
 def update_pharmacy(id):
     pharmacy = Pharmacy.query.filter_by(pharmacy_id=id)
-    pharmacy.update(dict(pharmacy_name = request.json["pharmacy_name"]))
-    db.session.commit()
-    return jsonify(pharmacy.first().serialize)
+    updated_fields = pharmacy_schema.dump(request.json)
+    if updated_fields:
+        pharmacy.update(updated_fields)
+        db.session.commit()
+    return jsonify(pharmacy_schema.dump(pharmacy.first()))
 
 @pharmacies.route("/pharmacies/<int:id>/", methods = ["DELETE"])
 def delete_pharmacy(id):
     pharmacy = Pharmacy.query.get_or_404(id)
     db.session.delete(pharmacy)
     db.session.commit()
-    return jsonify(pharmacy.serialize)
+    return jsonify(pharmacy_schema.dump(pharmacy))
