@@ -7,7 +7,6 @@ from schemas.pharmacy_schema import pharmacies_schema, pharmacy_schema
 pharmacies = Blueprint('pharmacies', __name__)
 
 # 'View' code
-# 
 # This one is just a placeholder for now, no CRUD here
 @pharmacies.route('/')
 def homepage():
