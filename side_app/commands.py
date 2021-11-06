@@ -18,3 +18,16 @@ def drop_db():
     db.drop_all()
     print("Tables deleted")
 
+@db_commands.cli.command("seed")
+def seed_db():
+    from models.pharmacy import Pharmacy
+    from faker import Faker
+    faker = Faker()
+
+    for i in range(20):
+        pharmacy = Pharmacy(faker.catch_phrase())
+        db.session.add(pharmacy)
+    
+    db.session.commit()
+    print("Tables seeded")
+
