@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from main import db
 from models.pharmacy import Pharmacy
 from schemas.pharmacy_schema import pharmacies_schema, pharmacy_schema
@@ -26,7 +26,11 @@ def homepage():
 @pharmacies.route("/pharmacies/", methods=["GET"])
 def get_pharmacies():
     pharmacies = Pharmacy.query.all()
-    return jsonify(pharmacies_schema.dump(pharmacies))
+    data = {
+        "page_title" : "Pharmacy Index",
+        "pharmacies" : pharmacies_schema.dump(pharmacies)
+    }
+    return render_template("pharmacies_index.html", page_data = data)
 
 @pharmacies.route("/pharmacies/", methods = ["POST"])
 def create_pharmacy():
