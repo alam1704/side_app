@@ -34,7 +34,7 @@ def get_pharmacies():
 
 @pharmacies.route("/pharmacies/", methods = ["POST"])
 def create_pharmacy():
-    new_pharmacy = pharmacy_schema.load(request.json)
+    new_pharmacy = pharmacy_schema.load(request.form)
     db.session.add(new_pharmacy)
     db.session.commit()
     return jsonify(pharmacy_schema.dump(new_pharmacy))

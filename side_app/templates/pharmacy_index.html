@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for course in page_data.courses %}
-        <a href="/pharmacies/{{ pharmacy.pharmacy_id }}/">{{ pharmacy.pharmacy_name }}</a><br/>
+    <hr/>
+    <div>
+        <h2>New Pharmacy</h2>
+        <div>
+            <form action="/pharmacies/" method="POST">
+                <input type="text" name="pharmacy_name" placeholder="Pharmacy Name...">
+                <button>Create</button>
+            </form>
+        </div>
+    </div>    
+    <hr/>
+    <h2>Pharmacy List</h2>
+    {% for pharmacy in page_data.pharmacies %}
+        <li><a href="/pharmacies/{{ pharmacy.pharmacy_id }}/">{{ pharmacy.pharmacy_name }}</a></li>
     {% endfor %}
+    <hr/>
 {% endblock %}
+
