@@ -30,7 +30,7 @@ def get_pharmacies():
         "page_title" : "Pharmacy Index",
         "pharmacies" : pharmacies_schema.dump(pharmacies)
     }
-    return render_template("pharmacies_index.html", page_data = data)
+    return render_template("pharmacy_index.html", page_data = data)
 
 @pharmacies.route("/pharmacies/", methods = ["POST"])
 def create_pharmacy():
