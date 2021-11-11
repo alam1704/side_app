@@ -10,8 +10,11 @@ from marshmallow.validate import Length
 # using the ma object to create a schema.
 class PharmacySchema(ma.SQLAlchemyAutoSchema):
     # this is the equivalent of saying "you should only expect to get a value for pharmacy_id when the information is coming from the database.
+    # the auto field infers that the input has to be a string - validation tests
+    # Likewise with pharmacy name, length of name is validated with min char length of 1.
     pharmacy_id = auto_field(dump_only=True)
     pharmacy_name = auto_field(required=True, validate=Length(min=1))
+
 
     # A schema for the Course model
     # Using it to load in information from a JSON and turn that into a Course instance

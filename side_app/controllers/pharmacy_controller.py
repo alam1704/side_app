@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 from main import db
 from models.pharmacy import Pharmacy
 from schemas.pharmacy_schema import pharmacies_schema, pharmacy_schema
@@ -10,14 +10,10 @@ pharmacies = Blueprint('pharmacies', __name__)
 # This one is just a placeholder for now, no CRUD here
 @pharmacies.route('/')
 def homepage():
-    """
-    The homepage route. 
-    
-    This will later contain information about what classes are available to enroll in.
-    '/' is the address here, which means it will be available from our host domain. 
-    During production this is localhost:5000 or 127.0.0.1:5000
-    """
-    return "Hello, world! Check this out!"
+    data = {
+        "page_title" : "Home Page"
+    }
+    return render_template("homepage.html", page_data = data)
 
 #db.create_all()
 # create the table in our database to match our model
@@ -37,25 +33,33 @@ def create_pharmacy():
     new_pharmacy = pharmacy_schema.load(request.form)
     db.session.add(new_pharmacy)
     db.session.commit()
-    return jsonify(pharmacy_schema.dump(new_pharmacy))
+    return redirect(url_for("pharmacies.get_pharmacies"))
 
 @pharmacies.route("/pharmacies/<int:id>/", methods = ["GET"])
 def get_pharmacy(id):
     pharmacy = Pharmacy.query.get_or_404(id)
-    return jsonify(pharmacy_schema.dump(pharmacy))
+    data = {
+        "page_title" : "Pharmacy Detail",
+        "pharmacy" : pharmacy_schema.dump(pharmacy)
+    }
+    return render_template("pharmacy_detail.html", page_data = data)
 
-@pharmacies.route("/pharmacies/<int:id>/", methods=["PUT", "PATCH"])
+@pharmacies.route("/pharmacies/<int:id>/", methods=["POST"])
 def update_pharmacy(id):
     pharmacy = Pharmacy.query.filter_by(pharmacy_id=id)
-    updated_fields = pharmacy_schema.dump(request.json)
+    updated_fields = pharmacy_schema.dump(request.form)
     if updated_fields:
         pharmacy.update(updated_fields)
         db.session.commit()
-    return jsonify(pharmacy_schema.dump(pharmacy.first()))
+    data = {
+        "page_title" : "Pharmacy Detail",
+        "pharmacy" : pharmacy_schema.dump(pharmacy.first())
+    }
+    return render_template("pharmacy_detail.html", page_data = data)
 
-@pharmacies.route("/pharmacies/<int:id>/", methods = ["DELETE"])
+@pharmacies.route("/pharmacies/<int:id>/delete/", methods = ["POST"])
 def delete_pharmacy(id):
     pharmacy = Pharmacy.query.get_or_404(id)
     db.session.delete(pharmacy)
     db.session.commit()
-    return jsonify(pharmacy_schema.dump(pharmacy))
+    return redirect(url_for("pharmacies.get_pharmacies"))

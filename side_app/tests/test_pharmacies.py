@@ -35,5 +35,5 @@ class TestPharmacies(unittest.TestCase):
     
     # test function to check a good test
     def test_create_good_pharmacy(self):
-        response = self.client.response.post("/pharmacies/", json={"pharmacy_name":""})
+        response = self.client.response.post("/pharmacies/", data={"pharmacy_name":""})
         

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content%}        
+    
+    <h2> {{ page_data.pharmacy.pharmacy_name }} </h2>
+    <p> Pharmacy ID: {{ page_data.pharmacy.pharmacy_id }}</p>
+
+    <form action='/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/', method ="POST">
+        <input type="text" name="pharmacy_name" placeholder="Pharmacy Name...">
+        <button>Create</button>
+    </form>
+    <br> </br>
+    <form action = "/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/delete/", method = "POST">
+        <button>Delete Pharmacy</button>
+    </form>
+
+{% endblock %}
