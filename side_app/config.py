@@ -2,6 +2,7 @@ import os
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SECRET_KEY = os.environ.get("secret_cryptographic_key_123")
     
     @property
     def SQLALCHEMY_DATABASE_URI(self):
