@@ -12,7 +12,7 @@ class Pharmacy(db.Model):
     pharmacy_id = db.Column(db.Integer, primary_key=True)
     pharmacy_name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(200), default="No description provided...")
-    phone_number = db.Column(db.Integer, nullable=False, default=0)
+    phone_number = db.Column(db.Integer, nullable=False, server_default="0")
 
 
 
