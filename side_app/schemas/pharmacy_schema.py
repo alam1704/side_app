@@ -14,7 +14,8 @@ class PharmacySchema(ma.SQLAlchemyAutoSchema):
     # Likewise with pharmacy name, length of name is validated with min char length of 1.
     pharmacy_id = auto_field(dump_only=True)
     pharmacy_name = auto_field(required=True, validate=Length(min=1))
-
+    description = auto_field(validate=Length(min=1))
+    phone_number = auto_field(required=False)
 
     # A schema for the Course model
     # Using it to load in information from a JSON and turn that into a Course instance

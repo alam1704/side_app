@@ -2,7 +2,7 @@ import os
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
-    SECRET_KEY = os.environ.get("secret_cryptographic_key_123")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     
     @property
     def SQLALCHEMY_DATABASE_URI(self):
@@ -19,6 +19,8 @@ class Config(object):
         return f"postgresql+psycopg2://{uri_dict['DB_USER']}:{uri_dict['DB_PASS']}@{uri_dict['DB_DOMAIN']}/{uri_dict['DB_NAME']}"
 
 class DevelopmentConfig(Config):
+    # To see the SQL commands that are being run in the background
+    #SQLALCHEMY_ECHO = True
     DEBUG = True
 
 class ProductionConfig(Config):

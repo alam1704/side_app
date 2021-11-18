@@ -3,10 +3,14 @@
     
     <h2> {{ page_data.pharmacy.pharmacy_name }} </h2>
     <p> Pharmacy ID: {{ page_data.pharmacy.pharmacy_id }}</p>
+    <p> Description: {{ page_data.pharmacy.description }}</p>
+    <p> Phone Number: {{ page_data.pharmacy.phone_number }}</p>
 
     <form action='/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/', method ="POST">
         <input type="text" name="pharmacy_name" placeholder="Pharmacy Name...">
-        <button>Create</button>
+        <input type="text" name="description" placeholder="Description..."/>
+        <input type="number" name="phone_number" placeholder="Phone Number..."/>
+        <button>Update</button>
     </form>
     <br> </br>
     <form action = "/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/delete/", method = "POST">

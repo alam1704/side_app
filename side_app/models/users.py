@@ -26,6 +26,12 @@ class User(UserMixin, db.Model):
         nullable=False
     )
 
+    is_admin = db.Column(
+        db.Boolean(),
+        default=False,
+        nullable=False
+    )
+
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')
 
