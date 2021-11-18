@@ -45,6 +45,7 @@ def get_pharmacy(id):
     return render_template("pharmacy_detail.html", page_data = data)
 
 @pharmacies.route("/pharmacies/<int:id>/", methods=["POST"])
+# import login_required decorator then put log_in decorator
 def update_pharmacy(id):
     pharmacy = Pharmacy.query.filter_by(pharmacy_id=id)
     updated_fields = pharmacy_schema.dump(request.form)

@@ -7,9 +7,9 @@
     <p> Phone Number: {{ page_data.pharmacy.phone_number }}</p>
 
     <form action='/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/', method ="POST">
-        <input type="text" name="pharmacy_name" placeholder="Pharmacy Name...">
-        <input type="text" name="description" placeholder="Description..."/>
-        <input type="number" name="phone_number" placeholder="Phone Number..."/>
+        <input type="text" name="pharmacy_name" value="{{ page_data.pharmacy.pharmacy_name }}"/>
+        <input type="text" name="description" value="{{ page_data.pharmacy.description}}"/>
+        <input type="number" name="phone_number" value="{{ page_data.pharmacy.phone_number }}"/>
         <button>Update</button>
     </form>
     <br> </br>

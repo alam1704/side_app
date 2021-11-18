@@ -15,3 +15,4 @@ class Pharmacy(db.Model):
     phone_number = db.Column(db.Integer, nullable=False, default=0)
 
 
+
