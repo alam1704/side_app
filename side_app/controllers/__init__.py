@@ -1,4 +1,5 @@
 from controllers.pharmacy_controller import pharmacies
+from controllers.user_controller import users
 
 registerable_controllers = [pharmacies]
 
