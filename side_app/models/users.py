@@ -28,8 +28,13 @@ class User(UserMixin, db.Model):
 
     is_admin = db.Column(
         db.Boolean(),
-        default=False,
+        server_default=False,
         nullable=False
+    )
+    is_superadmin = db.Column(
+        db.Boolean(),
+        nullable=False,
+        server_default=False
     )
 
     def set_password(self, password):
