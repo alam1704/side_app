@@ -9,7 +9,7 @@ user_images = Blueprint('user_images', __name__)
 
 @user_images.route("/users/<int:id>/image/", methods=["POST"])
 def update_image(id):
-    user=User.query.filter_by(id=id).first()
+    user=User.query.get_or_404(id)
     if "image" in request.files:
         image = request.files["image"]
         if Path(image.filename).suffix == ".png":
@@ -18,6 +18,9 @@ def update_image(id):
         elif Path(image.filename).suffix == ".jpg":
             bucket = boto3.resource("s3").Bucket(current_app.config["AWS_S3_BUCKET"])
             bucket.upload_fileobj(image, f"{user.image_filename}.jpg")
+        elif Path(image.filename).suffix == ".pdf":
+            bucket = boto3.resource("s3").Bucket(current_app.config["AWS_S3_BUCKET"])
+            bucket.upload_fileobj(image, f"{user.image_filename}.pdf")
         else:
             return abort(400, description="Invalid file type")
         
