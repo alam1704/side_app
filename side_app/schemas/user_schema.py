@@ -16,6 +16,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     id = auto_field(dump_only=True)
     name = auto_field(required=True, validate=validate.Length(min=1))
     email = auto_field(required=True, validate=validate.Email())
+    dob = fields.Date()
     is_admin = auto_field(required=False)
     password = fields.Method(
         required=True, 

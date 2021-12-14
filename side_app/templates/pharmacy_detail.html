@@ -6,13 +6,18 @@
     <p> Description: {{ page_data.pharmacy.description }}</p>
     <p> Phone Number: {{ page_data.pharmacy.phone_number }}</p>
 
+    <br><br>
+    
+    <h3>Update Course Info:</h3>
     <form action='/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/', method ="POST">
         <input type="text" name="pharmacy_name" value="{{ page_data.pharmacy.pharmacy_name }}"/>
         <input type="text" name="description" value="{{ page_data.pharmacy.description}}"/>
         <input type="number" name="phone_number" value="{{ page_data.pharmacy.phone_number }}"/>
         <button>Update</button>
     </form>
+
     <br> </br>
+    
     <form action = "/pharmacies/{{ page_data.pharmacy.pharmacy_id }}/delete/", method = "POST">
         <button>Delete Pharmacy</button>
     </form>

@@ -5,7 +5,7 @@ from models.pharmacy import Pharmacy
 # figures out to turn json --> model and model --> json
 from marshmallow_sqlalchemy import auto_field
 
-from marshmallow.validate import Length
+from marshmallow import validate
 
 # using the ma object to create a schema.
 class PharmacySchema(ma.SQLAlchemyAutoSchema):
@@ -13,8 +13,9 @@ class PharmacySchema(ma.SQLAlchemyAutoSchema):
     # the auto field infers that the input has to be a string - validation tests
     # Likewise with pharmacy name, length of name is validated with min char length of 1.
     pharmacy_id = auto_field(dump_only=True)
-    pharmacy_name = auto_field(required=True, validate=Length(min=1))
-    description = auto_field(validate=Length(min=1))
+    pharmacy_name = auto_field(required=True, validate=validate.Length(min=1))
+    pharmacy_email = auto_field(required=True, validate = validate.Email())
+    description = auto_field(validate=validate.Length(min=1))
     phone_number = auto_field(required=False)
 
     # A schema for the Course model

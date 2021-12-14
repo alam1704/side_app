@@ -28,14 +28,14 @@ class User(UserMixin, db.Model):
 
     is_admin = db.Column(
         db.Boolean(),
-        server_default="False",
-        nullable=False
+        server_default="0",
+        nullable=True
     )
-    is_superadmin = db.Column(
-        db.Boolean(),
-        nullable=False,
-        server_default="False"
-    )
+    # is_superadmin = db.Column(
+    #     db.Boolean(),
+    #     nullable=False,
+    #     server_default="0"
+    # )
 
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')

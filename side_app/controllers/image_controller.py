@@ -1,6 +1,7 @@
 from flask import Blueprint, request, redirect, abort, url_for, current_app
 from pathlib import Path
 from models.users import User
+from flask_login import login_required, current_user
 # S3 from our Flask application we will be using the AWS SDK boto3
 # It is a library that gives us classes and functions to help make our lives easier when we are developing
 import boto3
@@ -8,6 +9,7 @@ import boto3
 user_images = Blueprint('user_images', __name__)
 
 @user_images.route("/users/<int:id>/image/", methods=["POST"])
+@login_required
 def update_image(id):
     user=User.query.get_or_404(id)
     if "image" in request.files:

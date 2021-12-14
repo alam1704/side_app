@@ -5,9 +5,10 @@ from flask import Blueprint
 # creating a blueprint to avoid passing around the app variable when we decorate a function
 db_commands = Blueprint("db-custom", __name__)
 
-# command to create tables using SQLAlchemy with our registered models on the db variable.
+
 @db_commands.cli.command("create")
 def create_db():
+    """command to create tables using SQLAlchemy with our registered models on the db variable."""
     # the create all function
     db.create_all()
     print ("Tables created!")
